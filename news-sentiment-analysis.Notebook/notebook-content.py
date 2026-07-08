@@ -23,6 +23,7 @@
 
 df = spark.sql("SELECT * FROM news_db.tbl_news")
 display(df)
+display(df)
 
 # METADATA ********************
 
