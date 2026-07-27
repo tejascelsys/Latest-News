@@ -1,0 +1,159 @@
+table tbl_sentiment_analysis
+	lineageTag: 6991a94b-6aa2-4b34-87eb-85b7d9c3e7f4
+	sourceLineageTag: [dbo].[tbl_sentiment_analysis]
+
+	measure 'Positive Sentiment %' = ```
+			
+			IF (
+			    COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "positive" ) ) > 0,
+			    DIVIDE (
+			        CALCULATE (
+			            COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "positive" ))
+			        ),
+			        COUNTROWS('tbl_sentiment_analysis')
+			    ) * 100,
+			    0
+			)
+			
+			```
+		lineageTag: 72e3fef4-69de-478a-afa9-b39f42a2a1ab
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Negative Sentiment %' = ```
+			
+			IF (
+			    COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "negative" ) ) > 0,
+			    DIVIDE (
+			        CALCULATE (
+			            COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "negative" ))
+			        ),
+			        COUNTROWS('tbl_sentiment_analysis')
+			    ) * 100,
+			    0
+			)
+			
+			```
+		lineageTag: 75d3a560-4341-4748-821f-80447f4cce75
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Neutral Sentiment %' = ```
+			
+			IF (
+			    COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "neutral" ) ) > 0,
+			    DIVIDE (
+			        CALCULATE (
+			            COUNTROWS ( FILTER ( 'tbl_sentiment_analysis', 'tbl_sentiment_analysis'[Sentiment] = "neutral" ))
+			        ),
+			        COUNTROWS('tbl_sentiment_analysis')
+			    ) * 100,
+			    0
+			)
+			
+			```
+		lineageTag: c8461314-c945-4689-83de-62a4405dffb3
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column title
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2281ee97-19f8-4888-b9ae-dae540f4bff7
+		sourceLineageTag: title
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1b610ba2-47ca-4d32-8b3c-c449b3379123
+		sourceLineageTag: description
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column url
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ca021921-324c-46a0-8a64-0bae08fd98ee
+		sourceLineageTag: url
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: url
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column image
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bf605e0e-f082-40b9-a81f-3dcc50a09944
+		sourceLineageTag: image
+		summarizeBy: none
+		sourceColumn: image
+
+		annotation SummarizationSetBy = Automatic
+
+	column provider
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1a3d2a14-0b22-4477-bb44-f153c69707c7
+		sourceLineageTag: provider
+		summarizeBy: none
+		sourceColumn: provider
+
+		annotation SummarizationSetBy = Automatic
+
+	column datePublished
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 6ed0c76b-a528-4506-96fb-6fbad1fe7a41
+		sourceLineageTag: datePublished
+		summarizeBy: none
+		sourceColumn: datePublished
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column sentiment
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: e324c262-1156-4fac-90e3-a26905f4ebc9
+		sourceLineageTag: sentiment
+		summarizeBy: none
+		sourceColumn: sentiment
+
+		annotation SummarizationSetBy = Automatic
+
+	column author
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b27e9fea-6888-48a9-8f4b-35d9338ce117
+		sourceLineageTag: author
+		summarizeBy: none
+		sourceColumn: author
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tbl_sentiment_analysis = entity
+		mode: directLake
+		source
+			entityName: tbl_sentiment_analysis
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
